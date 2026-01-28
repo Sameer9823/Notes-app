@@ -15,6 +15,13 @@ async function fetchNotes() {
 export default async function Home() {
   const notes = await fetchNotes();
   // console.log(notes);
+
+  const res = await fetch('http://localhost:3000/api/timers', { cache: 'force-cache',
+  next: { revalidate: 10,
+    tags: ['timer  ']
+   }
+   });
+  const data = await res.json();
   
   return (
     <div className="container mx-auto p-4">
@@ -24,6 +31,18 @@ export default async function Home() {
         <div className=" p-4 rounded shadow">
           <NotesClients initialNotes={notes} />
         </div>
+      </div>
+      <hr className="my-8" />
+
+      <div className="p-4 rounded shadow border mt-8">
+
+      <h1 className="text-2xl font-bold mb-4">Nextjs Response </h1>
+      <p className="mb-2">Time: {data.time}</p>
+      <p className="mb-2">Readable: {data.readable}</p>
+      <p className="mb-2">Unix: {data.unix}</p>
+      <p className="mb-2">UTC: {data.utc}</p>
+      <p className="mb-2">Message: {data.message}</p>
+      <p className="mb-2">Request ID: {data.requestId}</p>
       </div>
     </div>
   );
