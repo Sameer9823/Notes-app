@@ -1,7 +1,9 @@
 import NotesClients from "@/components/NotesClients";
 import connectDB from "@/lib/db";
 import Note from "@/models/Note";
+import { User } from "lucide-react";
 import Image from "next/image";
+import UserList from "./components/user-list";
 
 async function fetchNotes() {
   await connectDB();
@@ -43,6 +45,18 @@ export default async function Home() {
       <p className="mb-2">UTC: {data.utc}</p>
       <p className="mb-2">Message: {data.message}</p>
       <p className="mb-2">Request ID: {data.requestId}</p>
+      </div>
+
+
+      <div className="container mx-auto p-4 mt-8">
+        <h1 className="text-3xl font-bold mb-8 text-center">
+          Tanstack Query Demo
+        </h1>
+      <div className="grid gap-6 md:grid-cols-2">
+        <div className="space-y-4">
+          <UserList />
+        </div>
+      </div>
       </div>
     </div>
   );
